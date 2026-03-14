@@ -325,6 +325,18 @@ def main():
                 for entry in logs[-20:]:
                     print(f"  [{entry['time'][11:16]}] {entry['agent'][:10]} | {entry['action']} | {entry['details'][:50]}")
 
+            elif command == "verify":
+                from core.key_manager import verify_all_existing_keys
+                verify_all_existing_keys()
+
+            elif command == "addkey":
+                parts2 = args.split(" ")
+                if len(parts2) >= 2:
+                    from core.key_manager import verify_and_add
+                    verify_and_add(parts2[0], parts2[1], gate)
+                else:
+                    print("Usage: addkey groq gsk_xxxx")
+
             elif command == "getkeys":
                 from agents.expand import research_and_grab_apis
                 research_and_grab_apis(gate)
