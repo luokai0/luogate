@@ -341,6 +341,11 @@ def main():
                 from agents.expand import research_and_grab_apis
                 research_and_grab_apis(gate)
 
+            elif command == "autoexpand":
+                n = int(args) if args.isdigit() else 3
+                from core.auto_signup import expand_gate
+                expand_gate(gate, rounds=n)
+
             elif command == "expand":
                 from agents.expand import expansion_cycle
                 expansion_cycle(gate, cycles=1)
