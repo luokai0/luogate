@@ -341,6 +341,11 @@ def main():
                 from agents.expand import research_and_grab_apis
                 research_and_grab_apis(gate)
 
+            elif command == "collect":
+                providers_list = args.split() if args else None
+                from core.auto_keys import collect_keys
+                collect_keys(gate, providers=providers_list, keys_per_provider=3)
+
             elif command == "autoexpand":
                 n = int(args) if args.isdigit() else 3
                 from core.auto_signup import expand_gate
