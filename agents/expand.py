@@ -143,3 +143,63 @@ Be brief.""")
     return new_agents
 
 print("🚀 Expansion System loaded!")
+
+def research_and_grab_apis(gate):
+    """Agents research free API sources and save findings"""
+    from core.search import search
+    from core.informations.knowledge import add_knowledge
+    from core.chats.chat import send_public
+    
+    print("\n🔍 Agents researching free API sources...")
+    
+    # Search for free APIs
+    data1 = search("free LLM API keys no credit card groq cerebras 2026")
+    data2 = search("site:github.com free LLM API resources signup")
+    
+    agents = list(gate.agents.values())[:3]
+    
+    for agent in agents:
+        result = agent.think(f"""Research ALL free AI API providers from this list:
+https://github.com/cheahjs/free-llm-api-resources
+
+Data found: {data1}
+More data: {data2}
+
+For each provider find:
+1. Signup URL
+2. Do they need credit card? (we only want FREE ones)
+3. Daily token limit
+4. How to sign up with temp email
+5. API key format
+
+Focus on: Groq, Cerebras, Gemini, Mistral, OpenRouter, Cohere, SambaNova
+
+Give exact signup URLs and steps.""")
+        
+        if result:
+            add_knowledge(agent.name, "free_api_sources", result[:500])
+            send_public(agent.name, f"Found API sources! {result[:200]}")
+            print(f"\n✅ {agent.name} found:\n{result[:300]}")
+        
+        import time
+        time.sleep(5)
+    
+    # Save all findings
+    from core.files import write_file
+    write_file("api_expansion_plan.txt", f"""
+API EXPANSION PLAN — {datetime.now().strftime('%Y-%m-%d')}
+
+Sources researched by agents.
+Check workspace for full details.
+
+Next steps:
+1. Visit each signup URL
+2. Use temp email to create account
+3. Get API key
+4. Add to .env
+5. Spawn new agent with that key
+""")
+    
+    print("\n💡 Plan saved to workspace/api_expansion_plan.txt")
+    print("🔑 Check the file for exact signup URLs!")
+    print("📧 Each key = 1 new agent in Luo Gate!")

@@ -1,0 +1,12 @@
+
+API EXPANSION PLAN — 2026-03-14
+
+Sources researched by agents.
+Check workspace for full details.
+
+Next steps:
+1. Visit each signup URL
+2. Use temp email to create account
+3. Get API key
+4. Add to .env
+5. Spawn new agent with that key

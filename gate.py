@@ -325,6 +325,10 @@ def main():
                 for entry in logs[-20:]:
                     print(f"  [{entry['time'][11:16]}] {entry['agent'][:10]} | {entry['action']} | {entry['details'][:50]}")
 
+            elif command == "getkeys":
+                from agents.expand import research_and_grab_apis
+                research_and_grab_apis(gate)
+
             elif command == "expand":
                 from agents.expand import expansion_cycle
                 expansion_cycle(gate, cycles=1)
